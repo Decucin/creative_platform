@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public enum ResultEnum {
 
+    ILLEGAL_TOKEN(402, "token不合法"),
     PASSWORD_ERROR(401, "密码错误"),
     USER_NOT_EXIST(400, "用户不存在"),
     TRY_AGAIN(500, "请重试"),

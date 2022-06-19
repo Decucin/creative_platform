@@ -1,6 +1,5 @@
 package com.power.platform.dao.pojo;
 
-
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -11,20 +10,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("article")
-public class Article {
+@TableName("list")
+public class ArticleList {
 
     @TableId
     private Integer id;
-    @TableField("title")
-    private String title;
-    @TableField("author_id")
-    private Integer authorId;
-    @TableField("description")
-    private String description;
-    @TableField("body_id")
-    private Integer bodyId;
-    @TableField("list_id")
-    private Integer listId;
+    @TableField("name")
+    private String name;
+    @TableField("parent_id")
+    private Integer parentId;
 
 }
