@@ -1,6 +1,7 @@
 package com.power.platform.controller;
 
 import com.power.platform.service.LoginService;
+import com.power.platform.utils.JWTTokenUtils;
 import com.power.platform.vo.Result;
 import com.power.platform.vo.params.LoginParam;
 import io.swagger.annotations.*;
@@ -15,7 +16,6 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    private static final String TOKEN_HEADER = "Authorization";
 
     @PostMapping("login")
     @ApiOperation("登录接口")
@@ -25,7 +25,7 @@ public class LoginController {
 
     @GetMapping("logout")
     @ApiOperation(value = "登出接口")
-    public Result<String> logout(@RequestHeader(TOKEN_HEADER) @ApiParam(hidden = true) String token){
+    public Result<String> logout(@RequestHeader(JWTTokenUtils.TOKEN_HEADER) @ApiParam(hidden = true) String token){
         return loginService.logout(token);
     }
 

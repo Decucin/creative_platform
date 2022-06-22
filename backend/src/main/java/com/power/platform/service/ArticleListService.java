@@ -2,11 +2,12 @@ package com.power.platform.service;
 
 import com.power.platform.dao.pojo.ArticleList;
 import com.power.platform.vo.Result;
+import com.power.platform.vo.params.ListParam;
 
 import java.util.List;
 
-public interface ListService {
-    Result<Integer> addList(String listName, String token);
+public interface ArticleListService {
+    Result<Integer> saveList(ListParam list, String token);
 
     Result<List<ArticleList>> allLists(String token);
 

@@ -2,7 +2,6 @@ package com.power.platform.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.power.platform.dao.mapper.UserMapper;
 import com.power.platform.dao.pojo.User;
 import com.power.platform.service.LoginService;
@@ -12,7 +11,6 @@ import com.power.platform.vo.ResultEnum;
 import com.power.platform.vo.params.LoginParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,17 +41,18 @@ public class LoginServiceImpl implements LoginService {
         if(!encoder.matches(loginParam.getPassword(), user.getPassword())){
             return Result.fail(ResultEnum.PASSWORD_ERROR);
         }
+        Boolean rememberMe = loginParam.getRememberMe();
         // 登录成功
-        String token = JWTTokenUtils.createToken(user.getId());
+        String token = JWTTokenUtils.createToken(user.getId(), rememberMe);
         // 存token到redis中
-        redisTemplate.opsForValue().set("Token_" + token, JSON.toJSONString(user), 1, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(JWTTokenUtils.TOKEN_PREFIX + token, JSON.toJSONString(user), rememberMe ? 24 * 6 + 23 : 23, TimeUnit.HOURS);
         return Result.success(token);
     }
 
     @Transactional
     @Override
     public Result<String> logout(String token) {
-        redisTemplate.delete("Token_" + token);
+        redisTemplate.delete(JWTTokenUtils.TOKEN_PREFIX + token);
         return Result.success("退出账号成功！");
     }
 

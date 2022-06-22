@@ -1,5 +1,6 @@
 package com.power.platform.vo;
 
+import com.alibaba.fastjson.JSON;
 import io.swagger.annotations.ApiModel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
@@ -28,4 +29,5 @@ public class Result<T> {
         result.msg = resultEnum.msg;
         return result;
     }
+
 }

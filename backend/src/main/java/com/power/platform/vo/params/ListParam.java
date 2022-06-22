@@ -1,4 +1,4 @@
-package com.power.platform.vo;
+package com.power.platform.vo.params;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -6,18 +6,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel("文章列表")
-public class ArticleListVo {
+@ApiModel("保存列表需要提交的参数")
+public class ListParam {
+
     @Schema(description = "列表id")
     private Integer id;
-    @Schema(description = "列表的名称")
-    private String name;
-    @Schema(description = "文章Vo列表")
-    private List<ArticleListVo> articleListVos;
-
+    @Schema(description = "列表名称")
+    private String listName;
+    @Schema(description = "父标签id")
+    private Integer parentId;
 }

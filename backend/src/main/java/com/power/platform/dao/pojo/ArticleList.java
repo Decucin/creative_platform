@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName("list")
+@TableName("article_list")
 public class ArticleList {
 
     @TableId
@@ -19,5 +19,7 @@ public class ArticleList {
     private String name;
     @TableField("parent_id")
     private Integer parentId;
+    @TableField("author_id")
+    private Integer authorId;
 
 }

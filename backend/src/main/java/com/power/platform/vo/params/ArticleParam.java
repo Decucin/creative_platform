@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @ApiModel("保存文章需要提交的参数")
 public class ArticleParam {
+    @Schema(description = "文章id")
+    private Integer id;
     @Schema(description = "文章标题")
     private String title;
     @Schema(description = "文章摘要")
@@ -19,5 +21,7 @@ public class ArticleParam {
     private String body;
     @Schema(description = "文章内容html代码")
     private String bodyHtml;
+    @Schema(description = "文章对应的列表id")
+    private Integer listId;
 
 }

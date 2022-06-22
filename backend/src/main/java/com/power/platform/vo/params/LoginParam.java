@@ -15,4 +15,6 @@ public class LoginParam {
     private String username;
     @Schema(description = "密码")
     private String password;
+    @Schema(description = "是否记住我")
+    private Boolean rememberMe;
 }

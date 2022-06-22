@@ -14,9 +14,11 @@ public class ArticleVo {
     @Schema(description = "文章id")
     private Integer id;
     @Schema(description = "文章标题")
-    private Integer title;
+    private String title;
     @Schema(description = "文章摘要")
     private String description;
     @Schema(description = "文章主体(html)")
     private String body;
+    @Schema(description = "文章对应的列表id")
+    private Integer listId;
 }

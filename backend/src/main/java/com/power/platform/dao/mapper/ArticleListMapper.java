@@ -5,5 +5,5 @@ import com.power.platform.dao.pojo.ArticleList;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ListMapper extends BaseMapper<ArticleList> {
+public interface ArticleListMapper extends BaseMapper<ArticleList> {
 }

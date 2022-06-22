@@ -19,10 +19,10 @@ public class JWTTokenUtils {
     // jwt的发行人
     private static final String ISS = "power";
 
-    // 过期时间是3600秒，既是1个小时
-    private static final long EXPIRATION = 604800L;
+    // 过期时间1day
+    private static final long EXPIRATION = 86400L;
 
-    public static String createToken(Integer id) {
+    public static String createToken(Integer id, Boolean rememberMe) {
         /**
          *  @author decucin
          *  @date 2021/10/25 12:07
@@ -30,7 +30,7 @@ public class JWTTokenUtils {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", id);
         // 根据是否记住我选择过期时间
-        long expiration = EXPIRATION;
+        long expiration = rememberMe ? EXPIRATION * 7 : EXPIRATION;
         return Jwts.builder()
                 // 这里设置了签名算法
                 .signWith(SignatureAlgorithm.HS512, SECRET)

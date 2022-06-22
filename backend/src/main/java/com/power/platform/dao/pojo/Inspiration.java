@@ -17,5 +17,7 @@ public class Inspiration {
     private Integer id;
     @TableField("inspiration")
     private String inspiration;
+    @TableField("author_id")
+    private Integer authorId;
 
 }
