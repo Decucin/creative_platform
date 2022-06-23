@@ -1,9 +1,13 @@
 package com.power.platform.config;
 
 import com.power.platform.handler.MyInterceptor;
+import com.power.platform.utils.JWTTokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -29,9 +33,22 @@ public class WebMVCConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/swagger-ui/**");
     }
 
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        // 跨域配置，将前端项目部署在3000端口
-        registry.addMapping("/**").allowedOrigins("http://localhost:3000");
+    private CorsConfiguration buildConfig(){
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedOrigin("http://localhost:3000");
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addExposedHeader(JWTTokenUtils.TOKEN_HEADER);
+        return corsConfiguration;
     }
+
+    @Bean
+    public CorsFilter corsFilter(){
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", buildConfig());
+        return new CorsFilter(source);
+    }
+
+
 }
