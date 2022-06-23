@@ -45,7 +45,7 @@ public class ArticleListServiceImpl implements ArticleListService {
 
     @Transactional
     @Override
-    public Result<List<ArticleList>> allLists(String token) {
+    public Result<List<ArticleListVo>> allLists(String token) {
         Integer authorId = JWTTokenUtils.getIdByToken(token);
         // 用树的形式做
         // 先把全部数据查出来

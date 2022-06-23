@@ -4,6 +4,7 @@ import com.power.platform.dao.pojo.ArticleList;
 import com.power.platform.dao.pojo.Inspiration;
 import com.power.platform.service.*;
 import com.power.platform.utils.JWTTokenUtils;
+import com.power.platform.vo.ArticleListVo;
 import com.power.platform.vo.ArticleVo;
 import com.power.platform.vo.InspirationVo;
 import com.power.platform.vo.Result;
@@ -48,7 +49,7 @@ public class ArticleController {
     @GetMapping("all")
     @ApiOperation("全部文章")
     public Result<List<ArticleVo>> allArticle(@RequestHeader(value = JWTTokenUtils.TOKEN_HEADER, required = false) @ApiParam(hidden = true) String token){
-        if(token == null || !redisTemplate.hasKey(token)){
+        if(token == null || !redisTemplate.hasKey(JWTTokenUtils.TOKEN_PREFIX + token)){
             return Result.success(new ArrayList<ArticleVo>());
         }
         return articleService.allArticle(token);
@@ -58,7 +59,7 @@ public class ArticleController {
     @ApiOperation("查看文章")
     public Result<ArticleVo> getArticle(@PathVariable("id") @ApiParam(value = "文章id") Integer id,
                                         @RequestHeader(JWTTokenUtils.TOKEN_HEADER) @ApiParam(hidden = true) String token){
-        if(token == null || !redisTemplate.hasKey(token)){
+        if(token == null || !redisTemplate.hasKey(JWTTokenUtils.TOKEN_PREFIX + token)){
             return Result.success(new ArticleVo());
         }
         return articleService.getArticle(id, token);
@@ -81,7 +82,7 @@ public class ArticleController {
     @GetMapping("inspirations/all")
     @ApiOperation("查看所有灵感")
     public Result<List<InspirationVo>> getAllInspiration(@RequestHeader(value = JWTTokenUtils.TOKEN_HEADER, required = false) @ApiParam(hidden = true) String token){
-        if(token == null || !redisTemplate.hasKey(token)){
+        if(token == null || !redisTemplate.hasKey(JWTTokenUtils.TOKEN_PREFIX + token)){
             return Result.success(new ArrayList<Inspiration>());
         }
         return inspirationService.getAllInspiration(token);
@@ -103,8 +104,8 @@ public class ArticleController {
 
     @GetMapping("lists/all")
     @ApiOperation("查看所有文章列表")
-    public Result<List<ArticleList>> allLists(@RequestHeader(value = JWTTokenUtils.TOKEN_HEADER, required = false) @ApiParam(hidden = true) String token){
-        if(token == null || !redisTemplate.hasKey(token)){
+    public Result<List<ArticleListVo>> allLists(@RequestHeader(value = JWTTokenUtils.TOKEN_HEADER, required = false) @ApiParam(hidden = true) String token){
+        if(token == null || !redisTemplate.hasKey(JWTTokenUtils.TOKEN_PREFIX + token)){
             return Result.success(new ArrayList<ArticleList>());
         }
         return listService.allLists(token);
